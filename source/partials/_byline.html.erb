@@ -1,0 +1,6 @@
+<% if locals[:bylines] %>
+<% locals[:bylines].each_with_index do |byline, index| %>
+  <%= index == 0 ? 'By ' : ' and ' %>
+  <%= byline.fullOrUserName %>
+<% end %>
+<% end %>

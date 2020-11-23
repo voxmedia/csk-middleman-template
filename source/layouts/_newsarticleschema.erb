@@ -1,0 +1,36 @@
+<script type="application/ld+json">
+  {
+    "@context":"http://schema.org",
+    "@type":"NewsArticle",
+    "mainEntityOfPage": "<%= data.content.entry.url %>",
+    "url": "<%= data.content.entry.url %>",
+    "headline": "<%= data.content.pages[0].hed %>",
+    "description": "<%= data.content.pages[0].dek %>",
+    "speakable": {"@type":"SpeakableSpecification",
+      "xpath":["/html/head/title","/html/head/meta[@name='description']/@content"]},
+    "datePublished": "<%= data.content.entry.firstPublishedAt ? DateTime.parse(data.content.entry.firstPublishedAt).iso8601 : '' %>",
+    "dateModified": "<%= data.content.entry.lastPublishedAt ? DateTime.parse(data.content.entry.lastPublishedAt).iso8601 : '' %>",
+    "author":<%= data.content.contributors.map { |c| { '@type' => 'Person', 'name' => c.fullOrUserName } }.to_json %>,
+    "publisher":{
+      "@type":"Organization",
+      "name":"<%= data.content.community.name %>",
+      "logo":{
+        "@type":"ImageObject",
+        "url":"<%= data.content.community.googleAmpLogo.url ? data.content.community.googleAmpLogo.url : '' %>",
+        "width": <%= data.content.community.googleAmpLogo.width ? data.content.community.googleAmpLogo.width : '' %>,
+        "height": <%= data.content.community.googleAmpLogo.height ? data.content.community.googleAmpLogo.height : '' %>
+      }
+    },
+    "articleSection":"<%= data.content.entry.primaryCommunityGroup ? data.content.entry.primaryCommunityGroup.slug : '' %>",
+    "keywords": <%= data.content.entry.communityGroups ? data.content.entry.communityGroups.map{|n| n[:name]} : '' %>,
+    "image":[
+      {
+        "@type":"ImageObject",
+        "url":"<%= (data.content.pages[0].seoImage && data.content.pages[0].seoImage.croppedSrc) ? data.content.pages[0].seoImage.croppedSrc : '' %>",
+        "width":"<%= data.content.pages[0].seoImage ? data.content.pages[0].seoImage.width : '' %>",
+        "height":"<%= data.content.pages[0].seoImage ? data.content.pages[0].seoImage.height : '' %>"
+      }
+    ],
+    "thumbnailUrl": "<%= (data.content.pages[0].seoImage && data.content.pages[0].seoImage.croppedSrc) ? data.content.pages[0].seoImage.croppedSrc : '' %>"
+  }
+</script>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= data.content.pages.first.seoTitle %></title>
+    <meta name='description' content='<%= data.content.pages.first.seoDescription || data.content.pages.first.dek %>' />
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%# Make sure canonical tag not included unless url has already been updated to the live one %>
+    <% if data.content.entry.url && !data.content.entry.url.end_with?("/") %>
+      <link rel='canonical' href='<%= data.content.entry.url %>' />
+    <% end %>
+    <meta property='author' content='<%= data.content.contributors.first.fullName %>' />
+    <% if data.content.entry.firstPublishedAt %>
+        <meta property='article:published_time' content='<%= DateTime.parse(data.content.entry.firstPublishedAt).iso8601 %>' />
+    <% end %>
+    <% if data.content.entry.lastPublishedAt %>
+        <meta property='article:modified_time' content='<%= DateTime.parse(data.content.entry.lastPublishedAt).iso8601 %>' />
+    <% end %>
+
+    <meta itemprop="description" content="<%= data.content.pages.first.seoDescription || data.content.pages.first.dek %>">
+    <meta itemprop="image" content="<%= data.content.pages[0].socialImage ? data.content.pages[0].socialImage.croppedSrc : '' %>">
+
+    <meta name="apple-mobile-web-app-title" content="<%= data.content.community.name_short %>">
+    <meta property="article:publisher" content="<%= data.content.community.facebookURL %>">
+    <meta property="og:description" content="<%= data.content.pages[0].socialDescription %>">
+
+    <meta property="og:image" content="<%= data.content.pages[0].socialImage ? data.content.pages[0].socialImage.openGraphCroppedSrc : '' %>">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:site_name" content="<%= data.content.community.name %> ">
+    <meta property="og:title" content="<%= data.content.pages[0].socialTitle %>">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="<%= data.content.entry.url %>">
+
+    <%# Uncomment following tag to restrict search engine indexing and link following %>
+    <%# <meta name="robots" content="noindex, nofollow"> %>
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="<%= data.content.entry.url %>">
+    <meta name="twitter:title" content="<%= data.content.pages[0].socialTitle %>">
+    <meta name="twitter:description" content="<%= data.content.pages[0].socialDescription %>">
+    <meta name="twitter:image:src" content="<%= data.content.pages[0].socialImage ? data.content.pages[0].socialImage.twitterCroppedSrc : '' %>">
+    <meta name="twitter:image:width" content="1200" />
+    <meta name="twitter:image:height" content="600" />
+    <meta name="twitter:site" content="<%= data.content.community.twitterScreenName %>">
+
+    <%= partial('layouts/newsarticleschema') %>
+
+    <%# Favicons %>
+    <link rel="icon" type="image/png" href="<%= data.content.community.favicon32 %>" sizes="32x32">
+    <link rel="icon" type="image/png" href="<%= data.content.community.favicon192 %>" sizes="192x192">
+    <link rel="apple-touch-icon" href="<%= data.content.community.favicon192 %>" sizes="180x180">
+
+    <%# Only render Parsely tags if the site has Parsely configured %>
+    <% if data.content.community.parselyId && !data.content.community.parselyId.empty? %>
+        <script id="parsely-cfg" src="//cdn.parsely.com/keys/<%=data.content.community.parselyId%>/p.js" defer=""></script>
+        <%# Only render Parsely tags after initial publish to ensure the data is accurate %>
+        <% if data.content.entry.firstPublishedAt && data.content.entry.url && !data.content.entry.url.end_with?("/") %>
+            <meta name="parsely-title" content="<%= data.content.pages.first.hed %>">
+            <meta name="parsely-link" content="<%= data.content.entry.url %>">
+            <meta name="parsely-type" content="post">
+            <meta name="parsely-image-url" content="<%= data.content.pages.first.mainImage.croppedSrc %>">
+            <meta name="parsely-pub-date" content="<%= DateTime.parse(data.content.entry.firstPublishedAt).iso8601 %>">
+            <meta name="parsely-section" content="<%= data.content.entry.primaryCommunityGroup.slug %>">
+            <meta name="parsely-author" content="<%= data.content.entry.frontend.analyticsDataLayer['Author'] %>">
+            <meta name="parsely-tags" content="<%= data.content.entry.frontend.analyticsDataLayer['All Chorus Categories'].gsub(":", ", ")%>">
+        <% end %>
+    <% end %>
+
+    <%= stylesheet_link_tag 'site' %>
+    <%= javascript_include_tag 'site' %>
+    <script src='https://www.googletagservices.com/tag/js/gpt.js' async></script>
+    <script src='https://c.amazon-adsystem.com/aax2/apstag.js' async></script>
+    <script src='<%= data.content.community.concertLibraryUrl %>'></script>
+    <%= partial('layouts/_analytics') %>
+  </head>
+  <body>
+    <%= partial('layouts/_concert') %>
+    <%= yield %>
+  </body>
+</html>

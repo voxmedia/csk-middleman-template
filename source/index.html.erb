@@ -1,0 +1,16 @@
+<% page = data.content.pages[0] %>
+<h1><%= page&.hed %></h1>
+
+<h2><%= page&.dek %></h2>
+
+<p><%= partial('partials/byline', :locals => { :bylines => data.content.contributors }) %></p>
+
+<!-- Uncomment to add an Athena ad to your page
+<div class="ad-placemarker-athena"></div>
+-->
+
+<%= link_to(
+"Read Middleman Documentation",
+"https://middlemanapp.com/basics/templating_language/",
+target: "_blank"
+) %>
