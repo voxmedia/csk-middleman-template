@@ -1,6 +1,6 @@
 # CSK Middleman Template
 
-A [middleman](https://middlemanapp.com/) template the [Chorus](https://getchorus.voxmedia.com/) Custom Storytelling Kit.
+A [middleman](https://middlemanapp.com/) template for the [Chorus](https://getchorus.voxmedia.com/) Custom Storytelling Kit.
 
 ## Usage with the CSK
 
