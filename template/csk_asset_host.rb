@@ -10,11 +10,13 @@ class CskAssetHost < ::Middleman::Extension
   option :rewrite_ignore, [], 'Regexes of filenames to skip processing for host rewrites'
   option :asset_path_rewriter, nil, 'Proc for modifying the asset path'
 
+  CSK_ASSET_EXTENSIONS = %w'.mp3 .pdf .docx .xlsx'
+
   def initialize(app, options_hash={}, &block)
     super
 
     app.rewrite_inline_urls id: :asset_host,
-                            url_extensions: options.exts || app.config[:asset_extensions],
+                            url_extensions: (options.exts || app.config[:asset_extensions]) + CSK_ASSET_EXTENSIONS,
                             source_extensions: options.sources,
                             ignore: options.ignore,
                             rewrite_ignore: options.rewrite_ignore,
