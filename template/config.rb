@@ -28,7 +28,9 @@
     # activate :minify_css
     # activate :minify_javascript
     if ENV['CSK_ASSET_HOST']
-      activate :asset_host, host: ENV['CSK_ASSET_HOST']
+      require 'csk_asset_host'
+      ::Middleman::Extensions.register(:csk_asset_host, CskAssetHost)
+      activate :csk_asset_host, host: ENV['CSK_ASSET_HOST']
     else
       activate :relative_assets
     end
