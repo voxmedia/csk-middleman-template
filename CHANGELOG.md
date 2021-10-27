@@ -1,3 +1,7 @@
+# v2.2.0
+
+- Add conditional rendering of AMP url to <head> in layout.erb
+
 # v2.1.0
 
 - Add csk_asset_host to customize the asset_host extension for the csk's
