@@ -48,6 +48,10 @@
 
     <%= partial('layouts/newsarticleschema') %>
 
+    <% if data.content.entry.ampUrl %>
+        <link rel="amphtml" href="<%= data.content.entry.ampUrl %>"/>
+    <% end %>
+
     <%# Favicons %>
     <link rel="icon" type="image/png" href="<%= data.content.community.favicon32 %>" sizes="32x32">
     <link rel="icon" type="image/png" href="<%= data.content.community.favicon192 %>" sizes="192x192">
