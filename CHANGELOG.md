@@ -1,6 +1,7 @@
 # v2.2.0
 
 - Add conditional rendering of AMP url to <head> in layout.erb
+- Initialize ConcertAds when ready
 
 # v2.1.0
 
