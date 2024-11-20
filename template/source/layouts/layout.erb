@@ -65,7 +65,7 @@
             <meta name="parsely-title" content="<%= data.content.pages.first.hed %>">
             <meta name="parsely-link" content="<%= data.content.entry.url %>">
             <meta name="parsely-type" content="post">
-            <meta name="parsely-image-url" content="<%= data.content.pages.first.mainImage.croppedSrc %>">
+            <meta name="parsely-image-url" content="<%= data.content.pages.first&.mainImage&.croppedSrc %>">
             <meta name="parsely-pub-date" content="<%= DateTime.parse(data.content.entry.firstPublishedAt).iso8601 %>">
             <meta name="parsely-section" content="<%= data.content.entry.primaryCommunityGroup.slug %>">
             <meta name="parsely-author" content="<%= data.content.entry.frontend.analyticsDataLayer['Author'] %>">
