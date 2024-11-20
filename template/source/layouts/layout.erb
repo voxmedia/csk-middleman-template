@@ -34,6 +34,9 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="<%= data.content.entry.url %>">
 
+    <%# Community group slugs are added to access via CSK paywall script %>
+    <meta name="community-group-slugs" content="<%= data.content.entry.communityGroups.map { |group| group.slug }.join(',') %>">
+
     <%# Uncomment following tag to restrict search engine indexing and link following %>
     <%# <meta name="robots" content="noindex, nofollow"> %>
 
